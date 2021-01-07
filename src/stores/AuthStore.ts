@@ -1,27 +1,36 @@
-import {observable, action} from 'mobx';
+import {observable, action, makeAutoObservable} from 'mobx';
 import {v4 as uuidv4} from 'uuid';
-import {RootStoreModel} from './RootStore';
-
+import { RootStore} from './RootStore';
+import { getRoot } from "mobx-easy";
 export interface IAuthStore {
   id: string;
   name?: string;
   pic?: string;
 }
 
-export class AuthStore implements IAuthStore {
-  private rootStore: RootStoreModel;
 
-  @observable id = uuidv4();
-  @observable name = '';
-  @observable pic = '';
+export class AuthStore implements IAuthStore{
 
-  constructor(rootStore?: RootStoreModel) {
-    this.rootStore = rootStore;
+  id = uuidv4();
+  name = '';
+  pic = '';
+  private rootStore : RootStore
+
+
+  constructor(rootStore : RootStore) {
+    makeAutoObservable(this);
+    this.rootStore = rootStore
+    
   }
-
-  @action getName = (name: string): void => {
-    if (rootStore.authStore.id) {
-      this.name = name;
-    }
-  }
+  setName = (name: string): void => {
+        if (this.rootStore.authStore.id) {
+          this.name = name;
+        }
+      }
+      getName = ()  => {
+        if (this.rootStore.authStore.id) {
+          return this.id
+        }
+      }
+  
 }

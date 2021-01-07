@@ -8,22 +8,32 @@
  * @format
  */
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { createContext } from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'mobx-react';
-import stores from './stores';
+// import stores from './stores';
+import { RootStore,RootStoreApp } from "./stores/RootStore";
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Login from "./component/Login";
+
+export const Contex = createContext<RootStore>({} as RootStore)
 
 const App = () => {
+  console.log("this app")
   return (
+  
+    
     <NavigationContainer>
       <View>
-        <Provider {...stores}>
+        <Contex.Provider value={RootStoreApp}>
+            <Login/>
+        </Contex.Provider> 
+        {/* <Provider {...stores}>
           <View>
             <Text>Hello Home</Text>
           </View>
-        </Provider>
+        {/* </Provider> */}
       </View>
     </NavigationContainer>
   );

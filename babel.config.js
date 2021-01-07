@@ -1,6 +1,8 @@
 module.exports = {
   presets: [
-    'module:metro-react-native-babel-preset',
-    '@babel/plugin-proposal-class-properties',
+    'module:metro-react-native-babel-preset'
   ],
+  plugins: [
+    '@babel/plugin-proposal-class-properties'
+  ]
 };
